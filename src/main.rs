@@ -38,5 +38,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &[&repo.head()?.peel_to_commit()?],
     )?;
 
+    println!("Done!");
+
     Ok(())
 }
