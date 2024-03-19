@@ -35,7 +35,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &sig,
         &args.message,
         &repo.head()?.peel_to_tree()?,
-        &[],
+        &[&repo.head()?.peel_to_commit()?],
     )?;
 
     Ok(())
