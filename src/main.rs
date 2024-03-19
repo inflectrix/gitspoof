@@ -29,13 +29,18 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let repo = Repository::open(args.repo)?;
 
-    repo.commit(
-        Some("HEAD"),
+    let buf = repo.commit_create_buffer(
         &sig,
         &sig,
         &args.message,
         &repo.head()?.peel_to_tree()?,
         &[&repo.head()?.peel_to_commit()?],
+    )?;
+
+    repo.commit_signed(
+        buf.as_str().unwrap(),
+        &sig.to_string(),
+        None,
     )?;
 
     println!("Done!");
